@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Record inserted successfully ... </h1>
+<h1>Home Page</h1>
+<a href="./newProduct">New Product</a>
 </body>
 </html>

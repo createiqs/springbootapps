@@ -18,23 +18,24 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public void add(Product product) {
-		productDAO.add(product);		
+		productDAO.save(product);
+		
 	}
 
 	@Override
 	public void update(Product product) {
-		productDAO.update(product);		
+		productDAO.save(product);		
 	}
 
 	@Override
 	public void delete(Integer pid) {
-		productDAO.delete(pid);
+		productDAO.deleteById(pid);
 		
 	}
 
 	@Override
 	public Product findById(Integer pid) {
-		return productDAO.findById(pid);
+		return productDAO.findById(pid).get();
 	}
 
 	@Override

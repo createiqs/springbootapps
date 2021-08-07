@@ -57,7 +57,7 @@ public class ProductController {
 		return "updateProduct";
 	}
 	
-	@GetMapping("/delete")
+	@GetMapping("/deleteById")
 	public String delete(@RequestParam("pid") Integer pid) {
 		productService.delete(pid);
 		return "redirect:/findAll?msg=delete";
