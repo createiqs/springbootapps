@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RequestMapping("/book")
 public class BookController {
 	
-	private static final String UPLOAD_FOLDER = "D:\\Balaji-test\\";
+	@Value("${upload_folder}")
+	private String UPLOAD_FOLDER; 
 	
 	@Autowired
 	private BookService bookService;
