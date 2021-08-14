@@ -2,14 +2,19 @@ package com.createiq.pw.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.createiq.pw.ECommerceAdminApplication;
 import com.createiq.pw.domin.Book;
 import com.createiq.pw.repository.BookRepository;
 
 @Service
 public class BookServiceImpl implements BookService {
+	  private static final Logger LOGGER = LoggerFactory.getLogger(BookService.class);
+	
 	@Autowired
 	private BookRepository bookRepository;
 
@@ -20,6 +25,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<Book> findAll() {
+		LOGGER.info("### Service FindAll Invoked ###");
 		return bookRepository.findAll();
 	}
 

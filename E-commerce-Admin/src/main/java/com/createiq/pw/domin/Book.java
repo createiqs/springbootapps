@@ -176,5 +176,17 @@ public class Book {
 	public void setBookImage(MultipartFile bookImage) {
 		this.bookImage = bookImage;
 	}
+
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", publisher=" + publisher
+				+ ", publicationDate=" + publicationDate + ", language=" + language + ", category=" + category
+				+ ", numberOfPages=" + numberOfPages + ", format=" + format + ", isbn=" + isbn + ", shippingWeight="
+				+ shippingWeight + ", listPrice=" + listPrice + ", ourPrice=" + ourPrice + ", active=" + active
+				+ ", description=" + description + ", inStockNumber=" + inStockNumber + ", bookImage=" + bookImage
+				+ "]";
+	}
+	
+	
 	
 }
