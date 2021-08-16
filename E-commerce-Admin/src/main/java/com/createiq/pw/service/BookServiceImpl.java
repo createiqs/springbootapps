@@ -11,9 +11,11 @@ import com.createiq.pw.ECommerceAdminApplication;
 import com.createiq.pw.domin.Book;
 import com.createiq.pw.repository.BookRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class BookServiceImpl implements BookService {
-	  private static final Logger LOGGER = LoggerFactory.getLogger(BookService.class);
 	
 	@Autowired
 	private BookRepository bookRepository;
@@ -25,7 +27,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<Book> findAll() {
-		LOGGER.info("### Service FindAll Invoked ###");
+		log.info("### Service FindAll Invoked ###");
 		return bookRepository.findAll();
 	}
 

@@ -31,11 +31,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/book")
+@Slf4j
 public class BookController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(BookController.class);
+	// private static final Logger LOGGER =
+	// LoggerFactory.getLogger(BookController.class);
 
 	@Value("${upload_folder}")
 	private String UPLOAD_FOLDER;
@@ -45,30 +49,36 @@ public class BookController {
 
 	@GetMapping("/findAll")
 	public ResponseEntity<?> findAll() {
-		LOGGER.info("### Find All Controller method invoked ###");
-		LOGGER.info("### Find All Controller method END ###");
+		// LOGGER.info("### Find All Controller method invoked ###");
+		// LOGGER.info("### Find All Controller method END ###");
+		log.info("### Find All Controller method invoked ###");
+		log.info("### Find All Controller method END ###");
 		return new ResponseEntity<>(bookService.findAll(), HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<?> save(@RequestBody Book book) {
-		LOGGER.debug("Book", book);
-		 HttpHeaders headers = new HttpHeaders();
-		    headers.add("Custom-Header", "foo");
-		ResponseEntity<?> responseEntity = new ResponseEntity<>(bookService.saveOrUpdate(book), headers, HttpStatus.ACCEPTED);
+		// LOGGER.debug("Book", book);
+		log.debug("Book", book);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Custom-Header", "foo");
+		ResponseEntity<?> responseEntity = new ResponseEntity<>(bookService.saveOrUpdate(book), headers,
+				HttpStatus.ACCEPTED);
 		return responseEntity;
 	}
 
 	@PostMapping(value = "/saveWithImg", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseBean saveWithImg(@RequestPart("book") String bookString, @RequestPart("file") MultipartFile file) {
-		LOGGER.debug(bookString);
+		// LOGGER.debug(bookString);
+		log.debug(bookString);
 		Book book = new Book();
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			book = mapper.readValue(bookString, Book.class);
 		} catch (JsonMappingException e1) {
 			e1.printStackTrace();
-			LOGGER.error(e1.getMessage());
+			// LOGGER.error(e1.getMessage());
+			log.error(e1.getMessage());
 		} catch (JsonProcessingException e1) {
 			e1.printStackTrace();
 		}
