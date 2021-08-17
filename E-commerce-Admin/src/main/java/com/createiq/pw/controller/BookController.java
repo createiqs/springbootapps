@@ -31,6 +31,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -48,6 +51,13 @@ public class BookController {
 	private BookService bookService;
 
 	@GetMapping("/findAll")
+	@ApiOperation(value = "View a list of available Book", response = Iterable.class)
+	@ApiResponses(value = {
+	        @ApiResponse(code = 200, message = "Successfully retrieved list"),
+	        @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+	        @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+	        @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+	})
 	public ResponseEntity<?> findAll() {
 		// LOGGER.info("### Find All Controller method invoked ###");
 		// LOGGER.info("### Find All Controller method END ###");
@@ -108,7 +118,7 @@ public class BookController {
 		responseBean.setResult(bookService.saveOrUpdate(book));
 		return responseBean;
 	}
-
+	@ApiOperation(value = "Delete Book", response = Object.class)
 	@DeleteMapping
 	public ResponseBean delete(@RequestParam("bid") Integer bid) {
 		ResponseBean responseBean = new ResponseBean();
