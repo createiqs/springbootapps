@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,12 +55,10 @@ public class BookController {
 
 	@GetMapping("/findAll")
 	@ApiOperation(value = "View a list of available Book", response = Iterable.class)
-	@ApiResponses(value = {
-	        @ApiResponse(code = 200, message = "Successfully retrieved list"),
-	        @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
-	        @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-	        @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
-	})
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
+			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<?> findAll() {
 		// LOGGER.info("### Find All Controller method invoked ###");
 		// LOGGER.info("### Find All Controller method END ###");
@@ -67,13 +68,13 @@ public class BookController {
 	}
 
 	@PostMapping
-	public ResponseEntity<?> save(@RequestBody Book book) {
+	public ResponseEntity<?> save(@Valid @RequestBody Book book) {
 		// LOGGER.debug("Book", book);
 		log.debug("Book", book);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Custom-Header", "foo");
 		ResponseEntity<?> responseEntity = new ResponseEntity<>(bookService.saveOrUpdate(book), headers,
-				HttpStatus.ACCEPTED);
+				HttpStatus.OK);
 		return responseEntity;
 	}
 
@@ -118,6 +119,7 @@ public class BookController {
 		responseBean.setResult(bookService.saveOrUpdate(book));
 		return responseBean;
 	}
+
 	@ApiOperation(value = "Delete Book", response = Object.class)
 	@DeleteMapping
 	public ResponseBean delete(@RequestParam("bid") Integer bid) {
@@ -129,11 +131,8 @@ public class BookController {
 	}
 
 	@GetMapping
-	public ResponseBean findById(@RequestParam("bid") Integer bid) {
-		ResponseBean responseBean = new ResponseBean();
-		responseBean.setStatus(200);
-		responseBean.setResult(bookService.findById(bid));
-		return responseBean;
+	public ResponseEntity<?> findById(@RequestParam("bid") Integer bid) {
+		return new ResponseEntity<>(bookService.findById(bid), HttpStatus.OK);
 	}
 
 }

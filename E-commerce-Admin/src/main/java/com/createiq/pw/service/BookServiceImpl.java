@@ -1,6 +1,8 @@
 package com.createiq.pw.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.createiq.pw.ECommerceAdminApplication;
 import com.createiq.pw.domin.Book;
+import com.createiq.pw.exception.BookNameNotFoundException;
 import com.createiq.pw.repository.BookRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class BookServiceImpl implements BookService {
-	
+
 	@Autowired
 	private BookRepository bookRepository;
 
@@ -38,7 +41,14 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public Book findById(Integer bid) {
-		return bookRepository.findById(bid).get();
+		Optional<Book> book = bookRepository.findById(bid);
+		log.info("debug : " + book.get().getTitle());
+		log.info("debug : " + (book.get().getTitle() == null));
+		if (book.get().getTitle() != null) {
+			return book.get();
+		}
+		throw new BookNameNotFoundException("Book Name not found");
+
 	}
 
 }
