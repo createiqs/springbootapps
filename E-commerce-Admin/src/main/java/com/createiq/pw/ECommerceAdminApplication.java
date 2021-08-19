@@ -10,5 +10,6 @@ public class ECommerceAdminApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ECommerceAdminApplication.class, args);
 		LOGGER.info("Sample Log message with Some Parametres {} {} and {} ",1,2,3);
+	//
 	}
 }
