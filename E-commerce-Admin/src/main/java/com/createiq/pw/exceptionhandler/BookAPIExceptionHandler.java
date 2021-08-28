@@ -45,5 +45,11 @@ public class BookAPIExceptionHandler extends ResponseEntityExceptionHandler {
 		ErrorResponse errorResponse = new ErrorResponse("error", exception.getLocalizedMessage());
 		return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<?> exception(Exception exception) {
+		ErrorResponse errorResponse = new ErrorResponse("error", exception.getLocalizedMessage());
+		return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.NOT_FOUND);
+	}
 
 }

@@ -33,7 +33,7 @@ public class SwaggerConfig {
                 "Spring Boot Test REST API for Online Store",
                 "1.0",
                 "Terms of service",
-                new Contact("John Thompson", "https://createiq/about/", "balaji@createiq"),
+                new Contact("Balaji", "https://createiq/about/", "balaji@createiq"),
                "Apache License Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0",Arrays.asList(new VendorExtension[] {new StringVendorExtension("Test", "Test")})) ;
         return apiInfo;

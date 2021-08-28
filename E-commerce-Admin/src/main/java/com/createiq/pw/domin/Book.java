@@ -7,8 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,14 +30,16 @@ import lombok.ToString;
 @Getter
 @ToString
 public class Book {
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
-	@NotEmpty(message="It should not blank")
+	@NotEmpty(message="Title should not blank")
+	@Pattern(regexp = "([A-Z])\\w+",message="It should not allow Numbers")
 	private String title;
-	@NotBlank
+	@NotEmpty(message="Author should not blank")
 	private String author;
+	@NotEmpty(message="Publisher should not blank")
+	@Size(message="Publisher length should be min 10 char", min = 10)
 	private String publisher;
 	private String publicationDate;
 	private String language;

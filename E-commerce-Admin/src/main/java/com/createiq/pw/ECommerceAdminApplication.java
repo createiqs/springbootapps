@@ -12,4 +12,6 @@ public class ECommerceAdminApplication {
 		LOGGER.info("Sample Log message with Some Parametres {} {} and {} ",1,2,3);
 	//
 	}
+	
+	
 }
